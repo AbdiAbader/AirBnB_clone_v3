@@ -10,16 +10,16 @@ from models import storage
 from models.city import City
 from models.state import State
 
-@app_views.route('/states/<state_id>/cities', methods=['GET'])
+@app_views.route('/states/<state_id>/cities', methods=['GET'], strict_slashes=False)
 def get_cities(state_id):
     """ Retrieves the list of all City objects """
     state = storage.get('State', state_id)
     if state:
-        return jsonify([city.to_dict() for city in state.cities])
+        return jsonify([city.to_dict() for city in state.cities], strict_slashes=False)
     else:
         abort(404)
 
-@app_views.route('/cities/<city_id>', methods=['GET'])
+@app_views.route('/cities/<city_id>', methods=['GET'], strict_slashes=False)
 def get_city(city_id):
     """ Retrieves a City object """
     city = storage.get('City', city_id)
@@ -28,7 +28,7 @@ def get_city(city_id):
     else:
         abort(404)
 
-@app_views.route('/cities/<city_id>', methods=['DELETE'])
+@app_views.route('/cities/<city_id>', methods=['DELETE'], strict_slashes=False)
 def del_city(city_id):
     """Deletes city by city_id"""
     city = storage.get('City', city_id)
@@ -38,7 +38,7 @@ def del_city(city_id):
     else:
         abort(404)
 
-@app_views.route('/states/<state_id>/cities', methods=['POST'])
+@app_views.route('/states/<state_id>/cities', methods=['POST'], strict_slashes=False)
 def post_city(state_id):
     """Creates a City"""
     state = storage.get('State', state_id)
@@ -53,7 +53,7 @@ def post_city(state_id):
     city.save()
     return make_response(jsonify(city.to_dict()), 201)
 
-@app_views.route('/cities/<city_id>', methods=['PUT'])
+@app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
 def put_city(city_id):
     """Updates a City object"""
     city = storage.get('City', city_id)
