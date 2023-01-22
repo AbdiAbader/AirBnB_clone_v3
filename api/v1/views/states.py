@@ -38,4 +38,4 @@ def post_state():
         abort(400, 'Missing name')
     state = State(**request.get_json())
     state.save()
-    return make_response(jsonify(state.to_dict()), 200)
+    return make_response(jsonify(state.to_dict()), 201)
