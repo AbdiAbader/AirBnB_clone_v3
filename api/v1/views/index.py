@@ -1,9 +1,14 @@
 #!/usr/bin/python3
-
-"""This module contains the Flask app"""
-
-from flask import Flask, jsonify, request, abort
+'''
+    flask with general routes
+    routes:
+        /status:    display "status":"OK"
+        /stats:     dispaly total for all classes
+'''
 from api.v1.views import app_views
+from flask import jsonify
+from models import storage
+
 
 @app_views.route("/status")
 def status():
