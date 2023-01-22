@@ -5,7 +5,9 @@
 from flask import Flask, jsonify, request, abort
 from api.v1.views import app_views
 
-@app_views.route('/status', methods=['GET'], strict_slashes=False)
+@app_views.route("/status")
 def status():
-    """Returns a JSON status"""
+    '''
+        return JSON of OK status
+    '''
     return jsonify({'status': 'OK'})
