@@ -88,4 +88,5 @@ class FileStorage:
                     cls_counter += 1
         else:
             cls_counter = len(self.__objects)
+            
         return cls_counter
