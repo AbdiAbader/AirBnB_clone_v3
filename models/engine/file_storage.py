@@ -78,3 +78,13 @@ class FileStorage:
             cls = eval (cls)
         key = cls.__name__ + '.' + id
         return self.__objects.get(key)
+    
+    def count(self, cls=None):
+        """Returns the number of objects in storage matching the given class name.
+        If no name is passed, returns the count of all objects in storage."""
+        if cls is None:
+            return len(self.__objects)
+        if type(cls) is str:
+            cls = eval (cls)
+        return len(self.all(cls))
+        
