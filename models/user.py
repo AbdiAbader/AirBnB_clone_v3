@@ -15,7 +15,7 @@ class User(BaseModel, Base):
         h = hashlib.new('md5')
         h.update(b"password")
         email = Column(String(128), nullable=False)
-        password = Column(String(128), nullable=False, default=h.hexdigest())
+        _password = Column("password", String(128), nullable=False)
         first_name = Column(String(128), nullable=True)
         last_name = Column(String(128), nullable=True)
         places = relationship("Place", backref="user")
@@ -29,3 +29,13 @@ class User(BaseModel, Base):
     def __init__(self, *args, **kwargs):
         """initializes user"""
         super().__init__(*args, **kwargs)
+
+    @property
+    def password(self):
+        """getter for password"""
+        return self._password
+    
+    @password.setter
+    def password(self, value):
+        """setter for password"""
+        self._password = hashlib.md5(value.encode()).hexdigest()
