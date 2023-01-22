@@ -3,7 +3,7 @@
     app for registering blueprint and starting flask
 '''
 from flask import Flask, make_response, jsonify
-import models
+from models import storage
 from api.v1.views import app_views
 from os import getenv
 
@@ -18,7 +18,7 @@ def tear_down(self):
     '''
     close query after each session
     '''
-    models.storage.close()
+    storage.close()
 
 
 @app.errorhandler(404)
