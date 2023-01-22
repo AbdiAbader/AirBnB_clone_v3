@@ -8,6 +8,7 @@ from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 import hashlib
 
+
 class User(BaseModel, Base):
     """Representation of a user """
     if models.storage_t == 'db':
@@ -34,7 +35,7 @@ class User(BaseModel, Base):
     def password(self):
         """getter for password"""
         return self._password
-    
+
     @password.setter
     def password(self, value):
         """setter for password"""
