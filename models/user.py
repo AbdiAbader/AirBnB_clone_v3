@@ -6,14 +6,16 @@ from os import getenv
 import sqlalchemy
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
-
+import hashlib
 
 class User(BaseModel, Base):
     """Representation of a user """
     if models.storage_t == 'db':
         __tablename__ = 'users'
+        h = hashlib.new('md5')
+        h.update(b"password")
         email = Column(String(128), nullable=False)
-        password = Column(String(128), nullable=False)
+        password = Column(String(128), nullable=False, default=h.hexdigest())
         first_name = Column(String(128), nullable=True)
         last_name = Column(String(128), nullable=True)
         places = relationship("Place", backref="user")
