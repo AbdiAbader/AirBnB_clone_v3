@@ -91,8 +91,9 @@ class DBStorage:
         if type(cls) == str and cls in name2class:
             return self.__session.query(cls).count()
         elif cls is None:
-            return self.__session.query(User).count() + self.__session.query(State).count() + self.__session.query(City).count() + self.__session.query
-        return len(self.all())
+            return self.__session.query(User).count() + self.__session.query(State).count() + self.__session.query(City).count() + self.__session.query(Amenity).count() + self.__session.query(Place).count() + self.__session.query(Review).count()
+        else:
+            return 0
 
     def count(self, cls=None):
         """Count number of objects in storage"""
