@@ -1,27 +1,34 @@
 #!/usr/bin/python3
-"""app.py to connect to API"""
-import os
+'''
+    app for registering blueprint and starting flask
+'''
+from flask import Flask, make_response, jsonify
 from models import storage
 from api.v1.views import app_views
-from flask import Flask, Blueprint, jsonify, make_response
+from os import getenv
 from flask_cors import CORS
 
-
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
 app.register_blueprint(app_views)
-cors = CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
 
 @app.teardown_appcontext
-def teardown_appcontext(code):
-    """teardown_appcontext"""
+def tear_down(self):
+    '''
+    close query after each session
+    '''
     storage.close()
 
 
 @app.errorhandler(404)
-def page_not_found(error):
+def not_found(error):
+    '''
+    return JSON formatted 404 status code response
+    '''
     return make_response(jsonify({'error': 'Not found'}), 404)
 
+
 if __name__ == "__main__":
-    app.run(host=os.getenv('HBNB_API_HOST', '0.0.0.0'),
-            port=int(os.getenv('HBNB_API_PORT', '5000')))
+    app.run(host=getenv("HBNB_API_HOST", "0.0.0.0"),
+            port=int(getenv("HBNB_API_PORT", "5000")), threaded=True)
