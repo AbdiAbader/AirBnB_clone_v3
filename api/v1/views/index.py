@@ -26,4 +26,3 @@ def storage_counts():
     count["states"] = storage.count("State")
     count["users"] = storage.count("User")
     return jsonify(count)
-
