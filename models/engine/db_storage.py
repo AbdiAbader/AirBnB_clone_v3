@@ -90,4 +90,7 @@ class DBStorage:
         """Returns the number of objects in storage matching the given class name"""
         if cls:
             return self.__session.query(cls).count()
+        if cls in name2class.values():
+            return self.__session.query(cls).count()
         return len(self.all())
+
