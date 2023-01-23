@@ -13,7 +13,6 @@ app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 cors = CORS(app, resources={r"/api/*": {"origins": "}"}})
 
 
-s
 @app.teardown_appcontext
 def teardown_appcontext(code):
     """teardown_appcontext"""
