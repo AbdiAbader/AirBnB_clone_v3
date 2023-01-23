@@ -78,7 +78,6 @@ class BaseModel:
             new_dict.pop('password', None)
         return new_dict
 
-
     def delete(self):
         """delete the current instance from the storage"""
         models.storage.delete(self)
